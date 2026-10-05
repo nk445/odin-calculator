@@ -45,6 +45,10 @@ controls.addEventListener("click", function (e) {
         }
         evaluate();
     }
+
+    else if (e.target.id === "clear") {
+        allClear();
+    }
 });
 
 function evaluate() {
@@ -55,15 +59,21 @@ function evaluate() {
 
     // display ans
     display.textContent = ans;
-    
+
     clear();
 }
 
 function clear() {
-    num1 = null;
-    num2 = null;
+    num1 = 0;
+    num2 = 0;
     operator = null;
     displayNumber = '';
+}
+
+function allClear() {
+    clear();
+    ans = 0;
+    display.textContent = '';
 }
 
 function add(a, b) {
