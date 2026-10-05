@@ -15,28 +15,7 @@ controls.addEventListener("click", function (e) {
     }
 
     else if (e.target.className === "operator") {
-        if (!num1) {
-            if (displayNumber === '') {
-                num1 = ans;
-            }
-            else {
-                num1 = Number(displayNumber);
-            }
-        }
-        else if (!num2) {
-            num2 = Number(displayNumber);
-        }
-
-        if (!operator) {
-            operator = e.target.id;
-        }
-        else {
-            evaluate();
-            num1 = ans;
-            operator = e.target.id;
-        }
-
-        displayNumber = '';
+        determineOperation(e);
     }
 
     else if (e.target.id === "=") {
@@ -50,6 +29,42 @@ controls.addEventListener("click", function (e) {
         allClear();
     }
 });
+
+function determineOperation(e) {
+    // operation if nothing stored yet
+    if (!num1) {
+        // use prev calculation as first num if no new num entered
+        if (displayNumber === '') {
+            // if user hasn't entered a number or done prev calculation,
+            // do nothing
+            if (ans) {
+                num1 = ans;
+                operator = e.target.id;
+            } 
+        }
+        
+        else {
+            num1 = Number(displayNumber);
+            operator = e.target.id;
+        }            
+    }
+
+    // operation if number 1 already stored
+    else if (!num2) {
+        // if second number entered, store it, set operator, evaluate
+        if (displayNumber != '') {
+            num2 = Number(displayNumber);
+            evaluate();
+            num1 = ans;
+            operator = e.target.id;
+        }
+
+        // if second number not entered, simply change the operator selected
+        operator = e.target.id;
+    }
+
+    displayNumber = '';
+}
 
 function evaluate() {
     if (num2 === 0 && operator === '/') {
