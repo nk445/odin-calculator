@@ -16,7 +16,12 @@ controls.addEventListener("click", function (e) {
 
     else if (e.target.className === "operator") {
         if (!num1) {
-            num1 = Number(displayNumber);
+            if (displayNumber === '') {
+                num1 = ans;
+            }
+            else {
+                num1 = Number(displayNumber);
+            }
         }
         else if (!num2) {
             num2 = Number(displayNumber);
