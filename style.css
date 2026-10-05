@@ -38,7 +38,12 @@ button {
 }
 
 .display {
+    font-family: 'Courier New', Courier, monospace;
     background-color: #262A2B;
     color: white;
-    height: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 12px;
 }
