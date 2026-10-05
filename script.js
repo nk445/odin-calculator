@@ -49,8 +49,13 @@ controls.addEventListener("click", function (e) {
 
 function evaluate() {
     ans = operate(num1, num2, operator);
+    // truncate to 10 decimal places
+    const factor = Math.pow(10, 10);
+    ans = Math.trunc(ans * factor) / factor;
+
     // display ans
     display.textContent = ans;
+    
     clear();
 }
 
