@@ -52,14 +52,19 @@ controls.addEventListener("click", function (e) {
 });
 
 function evaluate() {
-    ans = operate(num1, num2, operator);
-    // truncate to 10 decimal places
-    const factor = Math.pow(10, 10);
-    ans = Math.trunc(ans * factor) / factor;
+    if (num2 === 0 && operator === '/') {
+        display.textContent = "Don't EVER try that again";
+    }
+    else {
+        ans = operate(num1, num2, operator);
+        // truncate to 10 decimal places
+        const factor = Math.pow(10, 10);
+        ans = Math.trunc(ans * factor) / factor;
 
-    // display ans
-    display.textContent = ans;
-
+        // display ans
+        display.textContent = ans;
+    }
+    
     clear();
 }
 
