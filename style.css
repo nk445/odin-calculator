@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1A1C1D;
+    color: white;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #00b8ff;
+}
+
+div {
+    border-radius: 6px;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 350px;
+    background-color: black;
+    padding: 20px;
+}
+
+.controls {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+button {
+    width: 22%;
+    border-radius: 12px;
+    padding: 10px 6px;
+    margin: 2px 1px;
+}
+
+.display {
+    background-color: #262A2B;
+    color: white;
+    height: 50px;
+}
