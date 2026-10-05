@@ -1,5 +1,5 @@
-let num1;
-let num2;
+let num1 = 0;
+let num2 = 0;
 let operator;
 let displayNumber = '';
 let ans;
@@ -21,20 +21,40 @@ controls.addEventListener("click", function (e) {
         else if (!num2) {
             num2 = Number(displayNumber);
         }
+
+        if (!operator) {
+            operator = e.target.id;
+        }
+        else {
+            evaluate();
+            num1 = ans;
+            operator = e.target.id;
+        }
+
         displayNumber = '';
-        operator = e.target.id;
     }
 
     else if (e.target.id === "=") {
         if (!num2) {
             num2 = Number(displayNumber);
         }
-        ans = operate(num1, num2, operator);
-        // display ans
-        display.textContent = ans;
-        displayNumber = '';
+        evaluate();
     }
 });
+
+function evaluate() {
+    ans = operate(num1, num2, operator);
+    // display ans
+    display.textContent = ans;
+    clear();
+}
+
+function clear() {
+    num1 = null;
+    num2 = null;
+    operator = null;
+    displayNumber = '';
+}
 
 function add(a, b) {
     return a + b;
@@ -66,5 +86,7 @@ function operate(num1, num2, operator) {
         case '/':
             return divide(num1, num2);
             break;
+        default:
+            return add(num1, num2);
     }
 }
