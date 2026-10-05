@@ -3,12 +3,13 @@ let num2 = 0;
 let operator;
 let displayNumber = '';
 let ans;
+let decimalSelected = false;
 
 const controls = document.querySelector(".controls");
 const display = document.querySelector(".display");
 
 controls.addEventListener("click", function (e) {
-    console.log(`class: ${e.target.className}, id: ${e.target.id}`);
+    // console.log(`class: ${e.target.className}, id: ${e.target.id}`);
     if (e.target.className === "number") {
         displayNumber += e.target.id;
         display.textContent = displayNumber;
@@ -16,6 +17,7 @@ controls.addEventListener("click", function (e) {
 
     else if (e.target.className === "operator") {
         determineOperation(e);
+        decimalSelected = false;
     }
 
     else if (e.target.id === "=") {
@@ -27,6 +29,14 @@ controls.addEventListener("click", function (e) {
 
     else if (e.target.id === "clear") {
         allClear();
+    }
+
+    else if (e.target.id === ".") {
+        if (!decimalSelected) {
+            displayNumber += e.target.id;
+            display.textContent = displayNumber;
+            decimalSelected = true;
+        }
     }
 });
 
@@ -88,6 +98,7 @@ function clear() {
     num2 = 0;
     operator = null;
     displayNumber = '';
+    decimalSelected = false;
 }
 
 function allClear() {
