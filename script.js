@@ -8,22 +8,20 @@ let decimalSelected = false;
 const controls = document.querySelector(".controls");
 const display = document.querySelector(".display");
 
-controls.addEventListener("click", function (e) {
+controls.addEventListener("click", handleButtonClick);
+
+function handleButtonClick(e) {
     // console.log(`class: ${e.target.className}, id: ${e.target.id}`);
     if (e.target.className === "number") {
-        displayNumber += e.target.id;
-        display.textContent = displayNumber;
+        handleNumberEntry(e.target.id);
     }
 
     else if (e.target.className === "operator") {
-        determineOperation(e);
+        determineOperation(e.target.id);
         decimalSelected = false;
     }
 
     else if (e.target.id === "=") {
-        if (!num2) {
-            num2 = Number(displayNumber);
-        }
         evaluate();
     }
 
@@ -32,15 +30,24 @@ controls.addEventListener("click", function (e) {
     }
 
     else if (e.target.id === ".") {
-        if (!decimalSelected) {
-            displayNumber += e.target.id;
-            display.textContent = displayNumber;
-            decimalSelected = true;
-        }
+        handleDecimal();
     }
-});
+}
 
-function determineOperation(e) {
+function handleNumberEntry(num) {
+    displayNumber += num;
+    display.textContent = displayNumber;
+}
+
+function handleDecimal() {
+    if (!decimalSelected) {
+        displayNumber += '.';
+        display.textContent = displayNumber;
+        decimalSelected = true;
+    }
+}
+
+function determineOperation(op) {
     // operation if nothing stored yet
     if (!num1) {
         // use prev calculation as first num if no new num entered
@@ -49,13 +56,12 @@ function determineOperation(e) {
             // do nothing
             if (ans) {
                 num1 = ans;
-                operator = e.target.id;
+                operator = op;
             } 
         }
-        
         else {
             num1 = Number(displayNumber);
-            operator = e.target.id;
+            operator = op;
         }            
     }
 
@@ -77,6 +83,9 @@ function determineOperation(e) {
 }
 
 function evaluate() {
+    if (!num2) {
+        num2 = Number(displayNumber);
+    }
     if (num2 === 0 && operator === '/') {
         display.textContent = "Don't EVER try that again";
     }
