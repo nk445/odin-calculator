@@ -24,7 +24,7 @@ function handleKeyPress(e) {
     }
 
     else if (e.key === "Backspace") {
-        console.log(e.key);
+        handleBackspace();
     }
 
     else if (e.key === "=" || e.key === "Enter") {
@@ -41,7 +41,6 @@ function handleKeyPress(e) {
 }
 
 function handleButtonClick(e) {
-    // console.log(`class: ${e.target.className}, id: ${e.target.id}`);
     if (e.target.className === "number") {
         handleNumberEntry(e.target.id);
     }
@@ -60,6 +59,10 @@ function handleButtonClick(e) {
 
     else if (e.target.id === ".") {
         handleDecimal();
+    }
+
+    else if (e.target.id === "del") {
+        handleBackspace();
     }
 }
 
@@ -101,15 +104,23 @@ function determineOperation(op) {
             num2 = Number(displayNumber);
             evaluate();
             num1 = ans;
-            operator = e.target.id;
+            operator = op;
         }
 
         // if second number not entered, simply change the operator selected
-        operator = e.target.id;
+        operator = op;
     }
 
     displayNumber = '';
     decimalSelected = false;
+}
+
+function handleBackspace() {
+    if (displayNumber.at(-1) === ".") {
+        decimalSelected = false;
+    }
+    displayNumber = displayNumber.slice(0, -1);
+    display.textContent = displayNumber;
 }
 
 function evaluate() {
