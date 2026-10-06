@@ -10,6 +10,36 @@ const display = document.querySelector(".display");
 
 controls.addEventListener("click", handleButtonClick);
 
+document.addEventListener("keydown", handleKeyPress);
+
+function handleKeyPress(e) {
+    // check if number key pressed
+    if (/^[0-9]$/.test(e.key)) {
+        handleNumberEntry(e.key);
+    }
+
+    // Check for math operations (+, -, *, /)
+    else if (['+', '-', '*', '/'].includes(e.key)) {
+        determineOperation(e.key);
+    }
+
+    else if (e.key === "Backspace") {
+        console.log(e.key);
+    }
+
+    else if (e.key === "=" || e.key === "Enter") {
+        evaluate();
+    }
+
+    else if (e.key === "Escape") {
+        allClear();
+    }
+
+    else if (e.key === ".") {
+        handleDecimal();
+    }
+}
+
 function handleButtonClick(e) {
     // console.log(`class: ${e.target.className}, id: ${e.target.id}`);
     if (e.target.className === "number") {
@@ -18,7 +48,6 @@ function handleButtonClick(e) {
 
     else if (e.target.className === "operator") {
         determineOperation(e.target.id);
-        decimalSelected = false;
     }
 
     else if (e.target.id === "=") {
@@ -80,6 +109,7 @@ function determineOperation(op) {
     }
 
     displayNumber = '';
+    decimalSelected = false;
 }
 
 function evaluate() {
